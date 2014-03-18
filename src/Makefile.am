@@ -1,4 +1,4 @@
-bin_PROGRAMS = dvencode
-dvencode_SOURCES = dvencode.cc
-dvencode_LDADD = -lboost_program_options
-dvencode_CXXFLAGS = -std=c++11
+bin_PROGRAMS = kbdencode
+kbdencode_SOURCES = kbdencode.cc
+kbdencode_LDADD = -lboost_program_options
+kbdencode_CXXFLAGS = -std=c++11

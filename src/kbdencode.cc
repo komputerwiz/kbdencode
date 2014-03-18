@@ -23,7 +23,7 @@ map<char,char> zip(const string& keys, const string& vals)
     return m;
 }
 
-void dvencode(istream& in, ostream& out, const map<char,char>& m)
+void kbdencode(istream& in, ostream& out, const map<char,char>& m)
 {
     for (char c = in.get(); in.good(); c = in.get()) {
         map<char, char>::const_iterator it = m.find(c);
@@ -84,11 +84,11 @@ int main(int argc, char *argv[])
         vector<string> files = vm["files"].as< vector<string> >();
         for (const string &file : files) {
             fstream in(file);
-            dvencode(in, out, charMap);
+            kbdencode(in, out, charMap);
             in.close();
         }
     } else {
-        dvencode(cin, out, charMap);
+        kbdencode(cin, out, charMap);
     }
 
     return 0;
