@@ -73,7 +73,13 @@ int main(int argc, char *argv[])
     po::notify(vm);
 
     if (vm.count("help")) {
-        cout << "Usage: " << argv[0] << " [options] [files...]\n" << desc << endl;
+        cout << "Usage: " << argv[0] << " [options] [files...]\n"
+             << desc << '\n'
+             << "kbdencode version 0.1.0, Copyright (C) 2014 Matthew J. Barry\n"
+             << "kbdencode comes with ABSOLUTELY NO WARRANTY.\n"
+             << "This is free software, and you are welcome to redistribute it\n"
+             << "under certain conditions"
+             << endl;
         return 1;
     }
 
@@ -99,15 +105,24 @@ int main(int argc, char *argv[])
 
     ostream &out = cout;
 
-    if (vm.count("files")) {
-        vector<string> files = vm["files"].as< vector<string> >();
-        for (const string &file : files) {
-            fstream in(file);
-            kbdencode(in, out, charMap);
-            in.close();
+    try {
+        if (vm.count("files")) {
+            vector<string> files = vm["files"].as< vector<string> >();
+            for (const string &file : files) {
+                try {
+                    fstream in(file);
+                    kbdencode(in, out, charMap);
+                    in.close();
+                } catch (ios_base::failure &e) {
+                    cerr << e.what() << endl;
+                }
+            }
+        } else {
+            kbdencode(cin, out, charMap);
         }
-    } else {
-        kbdencode(cin, out, charMap);
+    } catch (...) {
+        cerr << "An unknown error occurred." << endl;
+        return -1;
     }
 
     return 0;
