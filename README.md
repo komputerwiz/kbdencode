@@ -1,7 +1,7 @@
 # kbdencode
 *A keyboard layout encoder filter: type input using a certain keyboard layout, see the output as if you were typing in another layout.*
 
-I use the [Dvorak keyboard layout][dvorak] ( you should too :) ), and I often fumble around the <del>traditional</del> <ins>antiquated</ins> QWERTY layout if I need to quickly use someone else's computer to show him or her something. I could add the Dvorak Keyboard to his or her user preferences, but `kbdtools` presents an alternate solution: I can type what I want on a QWERTY keyboard as if it were a Dvorak keyboard, and then convert the gibberish into what I had typed.
+I use the [Dvorak keyboard layout][dvorak] ( you should too :) ), and I often fumble around the <del>traditional</del> <ins>antiquated</ins> QWERTY layout if I need to quickly use someone else's computer to show him or her something. I could add the Dvorak Keyboard to his or her user preferences, but `kbdencode` presents an alternate solution: I can type what I want on a QWERTY keyboard as if it were a Dvorak keyboard, and then convert the gibberish into what I had typed.
 
 ## Installation
 `kbdencode` is built with [GNU Autotools][]. The easiest way to install `kbdencode` is to download a distribution package from the [official website][kbdencode] or the Releases tab on GitHub. Alternatively, you can use Autotools to set up this repository:
