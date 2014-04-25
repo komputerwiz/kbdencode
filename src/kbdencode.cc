@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
     if (vm.count("help")) {
         cout << "Usage: " << argv[0] << " [options] [files...]\n"
              << desc << '\n'
-             << "kbdencode version 0.1.0, Copyright (C) 2014 Matthew J. Barry\n"
+             << "kbdencode version 0.1.2, Copyright (C) 2014 Matthew J. Barry\n"
              << "kbdencode comes with ABSOLUTELY NO WARRANTY.\n"
              << "This is free software, and you are welcome to redistribute it\n"
              << "under certain conditions"
