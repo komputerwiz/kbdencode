@@ -39,7 +39,7 @@ make -j8
 
 
 ## Usage
-As it suits my needs, the default encoding direction is `--from=qwerty`, `--to=dvorak`. At present, the only command line options are `--from=<layout>`,   `--to=<layout>`, and `--help`; and the only named layouts are `qwerty` and `dvorak`. Instructions for specifying additional layouts are listed in the next section.
+As it suits my needs, the default encoding direction is `--from=qwerty`, `--to=dvorak`. At present, the only command line options are `--from=<layout>`,   `--to=<layout>`, `--help`, and `--config=<file>`; and the only named layouts are `qwerty` and `dvorak`. Instructions for specifying additional layouts are listed in the next section.
 
 ### As a file decoder
 Files to decode can be specified as extra command-line arguments:
@@ -96,7 +96,15 @@ If you want to type a message to a friend so that no one can read it over your s
 
 
 ## Adding new layouts
-Layouts are specified as an initializer list in the `src/kbdencode.cc` file. Layouts can also be specified as values to the `--to` and `--from` options. The format is simple:
+The easiest way to specify new layouts is in a configuration file. The default configuration file location is `$HOME/.kbdencoderc`, and the format is extremely simple:
+
+    layout name
+    layout keymap string (see below)
+    layout name
+    layout keymap string (see below)
+    ...
+
+Built-in layouts are specified as an initializer list in the `src/kbdencode.cc` file. Layouts can also be specified as values to the `--to` and `--from` options. The format is simple:
 
 1. type all the keys (without holding <kbd>Shift</kbd>) starting from the top-left (the backtick <kbd>`</kbd> symbol on a QWERTY keyboard), working left-to-right, and ending at the bottom-right (the forward-slash <kbd>/</kbd> key on a QWERTY keyboard).
 2. Repeat the process, but hold the <kbd>Shift</kbd> key down for all keys.
@@ -104,7 +112,12 @@ Layouts are specified as an initializer list in the `src/kbdencode.cc` file. Lay
 
 For example, the QWERTY map is <code>`1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:"ZXCVBNM<>?</code>
 
-Future support may be added to support some type of configuration file for simpler entry and recognition of new keyboard maps.
+Revisiting the configuration file format, here is a concrete example of a configuration file containing the built-in `qwerty` and `dvorak` layouts:
+
+    qwerty
+    `1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:"ZXCVBNM<>?
+    dvorak
+    `1234567890[]',.pyfgcrl/=\aoeuidhtns-;qjkxbmwvz~!@#$%^&*(){}"<>PYFGCRL?+|AOEUIDHTNS_:QJKXBMWVZ
 
 
 ## License
