@@ -17,10 +17,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <algorithm>
 #include <map>
+#include <stdexcept>
 
 #include <boost/program_options.hpp>
 
@@ -32,9 +34,38 @@ map<string, string> keymaps = {
 };
 
 
+class IOException : public runtime_error
+{
+public:
+    IOException(const string &what) : runtime_error("IO Exception: " + what) {}
+};
+
+
+
+void loadConfig(const string &filePath)
+{
+    ifstream file(filePath);
+
+    if (!file.is_open())
+        throw IOException("Could not open configuration file: " + filePath);
+
+    while (file.good()) {
+        string layoutName;
+        string layoutStr;
+
+        getline(file, layoutName);
+        getline(file, layoutStr);
+
+        if (layoutName.size() > 0 && layoutStr.size() > 0)
+            keymaps[layoutName] = layoutStr;
+    }
+
+    file.close();
+}
+
 map<char,char> zip(const string& keys, const string& vals)
 {
-    std::map<char, char> m;
+    map<char, char> m;
 
     for (size_t i = 0; i < min(keys.size(), vals.size()); ++i)
         m[keys[i]] = vals[i];
@@ -60,6 +91,7 @@ int main(int argc, char *argv[])
     po::options_description desc("Allowed options");
     desc.add_options()
         ("help", "print this help message")
+        ("config,c", po::value<string>(), "configuration file containing layout definitions (default: ~/.kbdencoderc)")
         ("from,f", po::value<string>(), "keyboard layout in which the message is actually typed (default: qwerty)")
         ("to,t", po::value<string>(), "keyboard layout to convert to (default: dvorak)")
         ("files", po::value< vector<string> >(), "input files (optional)")
@@ -81,6 +113,22 @@ int main(int argc, char *argv[])
              << "under certain conditions"
              << endl;
         return 1;
+    }
+
+    string configFilePath = string(getenv("HOME")) + "/.kbdencoderc";
+    bool customConfigPath = false;
+    if (vm.count("config")) {
+        configFilePath = vm["config"].as<string>();
+        customConfigPath = true;
+    }
+
+    try {
+        loadConfig(configFilePath);
+    } catch (IOException &e) {
+        if (customConfigPath) {
+            cerr << e.what() << endl;
+            return 1;
+        }
     }
 
     string from = keymaps["qwerty"];
@@ -110,7 +158,7 @@ int main(int argc, char *argv[])
             vector<string> files = vm["files"].as< vector<string> >();
             for (const string &file : files) {
                 try {
-                    fstream in(file);
+                    ifstream in(file);
                     kbdencode(in, out, charMap);
                     in.close();
                 } catch (ios_base::failure &e) {
