@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([kbdencode], [0.1.1], [matthew@komputerwiz.net])
+AC_INIT([kbdencode], [0.1.2], [matthew@komputerwiz.net])
 AM_INIT_AUTOMAKE([foreign -Wall -Werror])
 AC_CONFIG_HEADERS([config.h])
 
