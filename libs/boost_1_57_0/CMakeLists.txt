@@ -21,16 +21,16 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 endif()
 
 add_library(boost_program_options STATIC
-  src/cmdline.cpp
-  src/config_file.cpp
-  src/options_description.cpp
-  src/parsers.cpp
-  src/variables_map.cpp
-  src/value_semantic.cpp
-  src/positional_options.cpp
-  src/utf8_codecvt_facet.cpp
-  src/convert.cpp
-  src/winmain.cpp
-  src/split.cpp
+  src/program_options/cmdline.cpp
+  src/program_options/config_file.cpp
+  src/program_options/options_description.cpp
+  src/program_options/parsers.cpp
+  src/program_options/variables_map.cpp
+  src/program_options/value_semantic.cpp
+  src/program_options/positional_options.cpp
+  src/program_options/utf8_codecvt_facet.cpp
+  src/program_options/convert.cpp
+  src/program_options/winmain.cpp
+  src/program_options/split.cpp
 )
 target_include_directories(boost_program_options PUBLIC include)

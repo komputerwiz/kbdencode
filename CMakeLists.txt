@@ -21,7 +21,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 	set(CMAKE_CXX_FLAGS_RELEASE "/O2 /DNDEBUG")
 endif()
 
-add_subdirectory(libs/boost_1_57_0/program_options)
+add_subdirectory(libs/boost_1_57_0)
 
 add_executable(kbdencode src/kbdencode.cc)
 target_link_libraries(kbdencode boost_program_options)
