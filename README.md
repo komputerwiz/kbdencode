@@ -1,34 +1,29 @@
 # kbdencode
 *A keyboard layout encoder filter: type input using a certain keyboard layout, see the output as if you were typing in another layout.*
 
-I use the [Dvorak keyboard layout][dvorak] ( you should too :) ), and I often fumble around the <del>traditional</del> <ins>antiquated</ins> QWERTY layout if I need to quickly use someone else's computer to show him or her something. I could add the Dvorak Keyboard to his or her user preferences, but `kbdencode` presents an alternate solution: I can type what I want on a QWERTY keyboard as if it were a Dvorak keyboard, and then convert the gibberish into what I had typed.
+I use the [Dvorak keyboard layout](http://en.wikipedia.org/wiki/Dvorak_Simplified_Keyboard) ( you should too :) ), and I often fumble around the <del>traditional</del> <ins>antiquated</ins> QWERTY layout if I need to quickly use someone else's computer to show him or her something. I could add the Dvorak Keyboard to his or her user preferences, but `kbdencode` presents an alternate solution: I can type what I want on a QWERTY keyboard as if it were a Dvorak keyboard, and then convert the gibberish into what I had typed.
 
 ## Installation
-`kbdencode` is built with [GNU Autotools][]. The easiest way to install `kbdencode` is to download a distribution package from the [official website][kbdencode] or the Releases tab on GitHub. Alternatively, you can use Autotools to set up this repository:
+`kbdencode` is built with CMake. The easiest way to install `kbdencode` is to download a distribution package from the [official website](http://komputerwiz.net/kbdencode) or the Releases tab on GitHub. Alternatively, you can compile the project as follows:
 
 ```
-autoreconf --install
-```
-
-
-At this point, the build process is identical to that of a distributed package:
-
-```
-./configure
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 make install
 ```
 
-**NOTE:** `kbdencode` has a build dependency on the [Boost][] [program_options][boost-program-options] library by Vladimir Prus for parsing command-line options.
+**NOTE:** `kbdencode` has a build dependency on the [Boost](http://www.boost.org) [program_options](http://www.boost.org/doc/libs/1_55_0/doc/html/program_options.html) library by Vladimir Prus for parsing command-line options. A snapshot of this library from version 1.57.0 (current at the time of development) is included for convenience.
 
 The default installation directory is `/usr/local`, and the last command might require super user permissions: `sudo make install`.
 
 ### Build Hints
 
-To install kbdencode to a custom directory (e.g. under the `.local` directory in your home directory), use the standard `--prefix` flag:
+To install kbdencode to a custom directory (e.g. under the `.local` directory in your home directory), set the `CMAKE_INSTALL_PREFIX` flag on initial configuration:
 
 ```
-./configure --prefix=$HOME/.local
+cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
 ```
 
 While this is not relevant for `kbdencode` (since it has only one source file), the build process can be greatly optimized by using the `-jN` flag on the `make` command. This specifies the number of parallel build threads that can be executed simultaneously. For example, an Intel Core i7 quad-core processor can run up to 8 threads:
@@ -125,8 +120,4 @@ Revisiting the configuration file format, here is a concrete example of a config
 
 If the GPL presents a problem for you in any way, please let me know and I will consider relicensing the software for you.
 
-[kbdencode]: http://komputerwiz.net/kbdencode
-[dvorak]: http://en.wikipedia.org/wiki/Dvorak_Simplified_Keyboard
-[GNU Autotools]: http://www.gnu.org/software/automake/manual/html_node/Autotools-Introduction.html
-[Boost]: http://www.boost.org
-[boost-program-options]: http://www.boost.org/doc/libs/1_55_0/doc/html/program_options.html
+The included Boost source code is licensed under the Boost Software License, version 1.0. Full license details are available in the libs/boost_1.57.0/LICENSE_1_0.txt file.
