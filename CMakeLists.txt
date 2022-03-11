@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-# NOTE: once we start tagging releases, we can use git-describe to
-# automatically format a version string for the current commit
-project(kbdencode VERSION 0.1.2)
-
-string(TIMESTAMP PROJECT_BUILD_DATE)
-execute_process(COMMAND git -C "${CMAKE_CURRENT_SOURCE_DIR}" rev-parse --short HEAD OUTPUT_VARIABLE GIT_REVISION)
-string(STRIP "${GIT_REVISION}" GIT_REVISION)
+project(kbdencode VERSION 0.1.3)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
